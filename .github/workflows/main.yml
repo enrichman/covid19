@@ -38,4 +38,4 @@ jobs:
         git commit -m "Update covid19"
     
     - uses: ad-m/github-push-action@master
-      github_token: {{ secrets.GITHUB_TOKEN }}.
+      github_token: {{ secrets.GITHUB_TOKEN }}
