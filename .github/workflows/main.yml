@@ -33,11 +33,9 @@ jobs:
       run: |
         mkdir site/covid19
         mv main/world site/covid19/
-        ls -al site
-        ls -al site/covid19
-        ls -al site/covid19/world
-        #git add covid19
-        #git commit -m "Update covid19"
+        cd site
+        git add covid19
+        git commit -m "Update covid19"
     
-    #- uses: ad-m/github-push-action@master
-        
+    - uses: ad-m/github-push-action@master
+      github_token: {{ secrets.GITHUB_TOKEN }}.
