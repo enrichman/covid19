@@ -34,7 +34,7 @@ jobs:
         ls -al main
         ls -al site
         mkdir site/covid19
-        cp -r main/world site/covid19/world
+        mv main/world site/covid19/world
         ls -al site
         ls -al site/covid19
         #git add covid19
