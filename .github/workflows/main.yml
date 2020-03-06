@@ -32,5 +32,5 @@ jobs:
         git add covid19
         git commit -m "Update covid19"
     
-    - uses: ad-m/github-push-action@maste
+    - uses: ad-m/github-push-action@master
         
