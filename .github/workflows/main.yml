@@ -29,7 +29,7 @@ jobs:
     - name: Run a multi-line script
       run: |
         ls -al .
-        la -al ..
+        ls -al ..
         cp -r ../covid19 ./covid19
         git add covid19
         git commit -m "Update covid19"
