@@ -21,8 +21,11 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
+      with:
+        path: main
     - uses: actions/checkout@v2
       with:
+        path: site
         repository: 'enrichman/enrichman.github.io'
     
     # Runs a set of commands using the runners shell
@@ -30,8 +33,8 @@ jobs:
       run: |
         ls -al .
         ls -al ..
-        cp -r ../covid19/world .
-        ls -al .
+        cp -r main/covid19 site/covid19
+        ls -al site
         #git add covid19
         #git commit -m "Update covid19"
     
