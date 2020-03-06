@@ -30,9 +30,10 @@ jobs:
       run: |
         ls -al .
         ls -al ..
-        cp -r ../covid19 ./covid19
-        git add covid19
-        git commit -m "Update covid19"
+        cp -r ../covid19/world .
+        ls -al .
+        #git add covid19
+        #git commit -m "Update covid19"
     
     - uses: ad-m/github-push-action@master
         
