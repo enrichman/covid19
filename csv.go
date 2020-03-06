@@ -5,6 +5,7 @@ import (
 	"io"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/gosimple/slug"
@@ -79,9 +80,9 @@ func parseRecords(reader io.Reader, recordType string) []Record {
 		lng, _ := strconv.ParseFloat(records[i][3], 64)
 
 		rec := Record{
-			Province:   records[i][0],
+			Province:   strings.TrimSpace(records[i][0]),
 			ProvinceID: slug.Make(records[i][0]),
-			Country:    records[i][1],
+			Country:    strings.TrimSpace(records[i][1]),
 			CountryID:  slug.Make(records[i][1]),
 			Status:     recordType,
 			Timeseries: []TimeseriesData{},
