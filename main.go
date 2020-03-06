@@ -62,7 +62,11 @@ func printWorldFull(place World, out string) {
 }
 
 func printWorldData(place World, out string) {
-	place.Countries = nil
+	for i := range place.Countries {
+		place.Countries[i].Timeseries = nil
+		place.Countries[i].Provinces = nil
+	}
+
 	b, _ := json.Marshal(place)
 	_ = ioutil.WriteFile(out, b, 0644)
 }
@@ -72,7 +76,10 @@ func printCountryFull(place Country, out string) {
 	_ = ioutil.WriteFile(out, b, 0644)
 }
 func printCountryData(place Country, out string) {
-	place.Provinces = nil
+	for i := range place.Provinces {
+		place.Provinces[i].Timeseries = nil
+	}
+
 	b, _ := json.Marshal(place)
 	_ = ioutil.WriteFile(out, b, 0644)
 }
