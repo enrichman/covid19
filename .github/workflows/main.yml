@@ -34,7 +34,6 @@ jobs:
       with:
           repository: 'enrichman/covid19'
           ref: 'master'
-    - run: git pull
     - name: Download files
       uses: actions/download-artifact@v1
       with:
