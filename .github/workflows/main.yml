@@ -3,6 +3,9 @@
 name: CI
 
 on:
+  push:
+    branches:    
+      - update-site  
   schedule:
     - cron:  '0 * * * *'
 
