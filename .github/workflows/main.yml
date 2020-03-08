@@ -73,7 +73,7 @@ jobs:
     
     - name: Run a multi-line script
       run: |
-        mv world covid19/world
+        mv world covid19
         git status
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
