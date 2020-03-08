@@ -1,8 +1,6 @@
-# This is a basic workflow to help you get started with Actions
+name: Update data from CSSEGISandData
 
-name: CI
-
-on:
+on: 
   schedule:
     - cron:  '0 * * * *'
 
@@ -39,38 +37,48 @@ jobs:
       with:
         name: csv
         path: csv
+    - name: Generate new files
+      run: |
+        go build .
+        ./covid19
+        rm covid19
     - name: Push on our repo
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git commit -m "Update data" -a
+        git add -A
+        git diff-index --quiet HEAD || git commit -m 'Update data'
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: master
+    - name: Upload files
+      uses: actions/upload-artifact@v1
+      with:
+        name: world
+        path: world
   create-site:
     needs: update-data
     runs-on: ubuntu-latest
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
       with:
-        path: main
-    - uses: actions/checkout@v2
-      with:
-        path: site
+        token: ${{ secrets.ENRICHMAN_GH_TOKEN }}
         repository: 'enrichman/enrichman.github.io'
-  
-    # Runs a set of commands using the runners shell
+    - name: Download files
+      uses: actions/download-artifact@v1
+      with:
+        name: world
+        path: covid19/world
     - name: Run a multi-line script
       run: |
-        mkdir site/covid19
-        mv main/world site/covid19/
-        cd site
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
         git add covid19
-        git commit -m "Update covid19"
+        git diff-index --quiet HEAD || git commit -m 'Update world data'
     
     - uses: ad-m/github-push-action@master
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.ENRICHMAN_GH_TOKEN }}
+        repository: 'enrichman/enrichman.github.io'
