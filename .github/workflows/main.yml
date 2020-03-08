@@ -44,8 +44,9 @@ jobs:
         path: csv
     - name: Generate new files
       run: |
-        go version
-        go run main.go
+        go build .
+       ./covid19
+       rm covid19
     - name: Push on our repo
       run: |
         git config --local user.email "action@github.com"
