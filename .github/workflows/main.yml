@@ -72,7 +72,6 @@ jobs:
         path: covid19/world
     - name: Run a multi-line script
       run: |
-        cd site
         ls
         git status
       # git add covid19
