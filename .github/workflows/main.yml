@@ -73,7 +73,7 @@ jobs:
     
     - name: Run a multi-line script
       run: |
-        cp world covid19/
+        cp -r world covid19/
         rm -fr world
         git status
         git config --local user.email "action@github.com"
