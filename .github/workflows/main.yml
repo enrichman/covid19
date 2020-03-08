@@ -1,6 +1,8 @@
 name: Update data from CSSEGISandData
 
-on: 
+on:
+  push:
+
   schedule:
     - cron:  '0 * * * *'
 
@@ -23,6 +25,26 @@ jobs:
       with:
         name: csv
         path: csv
+  
+  clone-source-it:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone source Italy
+      uses: actions/checkout@v2
+      with:
+          repository: 'pcm-dpc/COVID-19'
+    - name: Copy files
+      run: |
+        mkdir json
+        mv dati-json/dpc-covid19-ita-andamento-nazionale.json json/italy.json
+        mv dati-json/dpc-covid19-ita-andamento-nazionale.json json/italy.json
+        mv dati-json/dpc-covid19-ita-regioni.json json/regioni.json
+    - name: Upload files
+      uses: actions/upload-artifact@v1
+      with:
+        name: json
+        path: json
+
   update-data:
     needs: clone-source
     runs-on: ubuntu-latest
@@ -37,6 +59,11 @@ jobs:
       with:
         name: csv
         path: csv
+    - name: Download files IT
+      uses: actions/download-artifact@v1
+      with:
+        name: json
+        path: json
     - name: Generate new files
       run: |
         go build .
@@ -58,6 +85,12 @@ jobs:
       with:
         name: world
         path: world
+    - name: Upload files IT
+      uses: actions/upload-artifact@v1
+      with:
+        name: local
+        path: local
+
   create-site:
     needs: update-data
     runs-on: ubuntu-latest
@@ -71,6 +104,11 @@ jobs:
       with:
         name: world
         path: covid19/world
+    - name: Download files IT
+      uses: actions/download-artifact@v1
+      with:
+        name: local
+        path: covid19/local
     - name: Run a multi-line script
       run: |
         git config --local user.email "action@github.com"

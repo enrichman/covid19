@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+
+	"github.com/gosimple/slug"
 )
 
 type Place struct {
@@ -54,6 +56,24 @@ func main() {
 	printWorldFull(world, "world/full.json")
 	printWorldData(world, "world/data.json")
 
+	// italy data
+	italy := parseItaly()
+	for _, regione := range italy.Regioni {
+		regID := slug.Make(regione.DenominazioneRegione)
+
+		for _, provincia := range regione.Province {
+			provID := slug.Make(provincia.SiglaProvincia)
+			if provID == "" {
+				provID = "xx"
+			}
+			os.MkdirAll(fmt.Sprintf("local/italy/%s/%s", regID, provID), os.ModePerm)
+			printProvincia(provincia, fmt.Sprintf("local/italy/%s/%s/data.json", regID, provID))
+		}
+		printRegioneFull(regione, fmt.Sprintf("local/italy/%s/full.json", regID))
+		printRegioneData(regione, fmt.Sprintf("local/italy/%s/data.json", regID))
+	}
+	printItalyFull(italy, "local/italy/full.json")
+	printItalyData(italy, "local/italy/data.json")
 }
 
 func printWorldFull(place World, out string) {
@@ -86,5 +106,41 @@ func printCountryData(place Country, out string) {
 
 func printProvince(place Province, out string) {
 	b, _ := json.Marshal(place)
+	_ = ioutil.WriteFile(out, b, 0644)
+}
+
+// LOCAL - ITALY
+
+func printItalyFull(italy Italy, out string) {
+	b, _ := json.Marshal(italy)
+	_ = ioutil.WriteFile(out, b, 0644)
+}
+
+func printItalyData(italy Italy, out string) {
+	for i := range italy.Regioni {
+		italy.Regioni[i].Timeseries = nil
+		italy.Regioni[i].Province = nil
+	}
+
+	b, _ := json.Marshal(italy)
+	_ = ioutil.WriteFile(out, b, 0644)
+}
+
+func printRegioneFull(regione Regione, out string) {
+	b, _ := json.Marshal(regione)
+	_ = ioutil.WriteFile(out, b, 0644)
+}
+
+func printRegioneData(regione Regione, out string) {
+	for i := range regione.Province {
+		regione.Province[i].Timeseries = nil
+	}
+
+	b, _ := json.Marshal(regione)
+	_ = ioutil.WriteFile(out, b, 0644)
+}
+
+func printProvincia(provincia Provincia, out string) {
+	b, _ := json.Marshal(provincia)
 	_ = ioutil.WriteFile(out, b, 0644)
 }
