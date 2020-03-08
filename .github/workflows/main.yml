@@ -13,7 +13,7 @@ jobs:
     - name: Clone source
       uses: actions/checkout@v2
       with:
-          repository: 'CSSEGISandData/COVID-19'
+        repository: 'CSSEGISandData/COVID-19'
     - name: Copy files
       run: |
         mkdir csv
@@ -32,10 +32,11 @@ jobs:
     - name: Clone source Italy
       uses: actions/checkout@v2
       with:
-          repository: 'pcm-dpc/COVID-19'
+        repository: 'pcm-dpc/COVID-19'
     - name: Copy files
       run: |
         mkdir json
+        ls -al
         mv dati-json/dpc-covid19-ita-andamento-nazionale.json json/italy.json
         mv dati-json/dpc-covid19-ita-andamento-nazionale.json json/italy.json
         mv dati-json/dpc-covid19-ita-regioni.json json/regioni.json
