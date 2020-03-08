@@ -6,6 +6,8 @@ import (
 	"os"
 	"strconv"
 	"time"
+
+	"github.com/gosimple/slug"
 )
 
 var italianRegions map[string]Record
@@ -24,10 +26,10 @@ func parseItalianRegions(reader io.Reader) []Record {
 	records, _ := csvReader.ReadAll()
 
 	for i := 1; i < len(records); i++ {
-		provinceID := records[i][2] // codice_regione
+		provinceID := slug.Make(records[i][3]) // denominazione_regione
 
 		confirmed, _ := strconv.Atoi(records[i][10])                  // totale_attualmente_positivi
-		death, _ := strconv.Atoi(records[i][8])                       // totale_ospedalizzati
+		death, _ := strconv.Atoi(records[i][13])                      // deceduti
 		recovered, _ := strconv.Atoi(records[i][12])                  // dimessi_guariti
 		tsTime, _ := time.Parse("2006-01-02 15:04:05", records[i][0]) // data
 		lat, _ := strconv.ParseFloat(records[i][4], 64)               // lat
