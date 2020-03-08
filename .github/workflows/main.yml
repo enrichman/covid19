@@ -45,8 +45,8 @@ jobs:
     - name: Generate new files
       run: |
         go build .
-       ./covid19
-       rm covid19
+        ./covid19
+        rm covid19
     - name: Push on our repo
       run: |
         git config --local user.email "action@github.com"
