@@ -73,6 +73,8 @@ jobs:
         path: covid19/world
     - name: Run a multi-line script
       run: |
+        pwd
+        ls
         git add covid19
         git diff-index --quiet HEAD || git commit -m 'Update world data'
     
