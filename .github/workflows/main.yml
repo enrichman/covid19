@@ -73,8 +73,10 @@ jobs:
     
     - name: Run a multi-line script
       run: |
-        cp -r world covid19/world
+        mv world covid19/world
         git status
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
         git add covid19
         git diff-index --quiet HEAD || git commit -m 'Update world data'
     
