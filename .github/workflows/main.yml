@@ -70,15 +70,15 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: world
-        path: covid19/world
+    
     - name: Run a multi-line script
       run: |
-        pwd
         ls
+        git status
         git add covid19
         git diff-index --quiet HEAD || git commit -m 'Update world data'
     
-    - uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.ENRICHMAN_GH_TOKEN }}
-        repository: 'enrichman/enrichman.github.io'
+    # - uses: ad-m/github-push-action@master
+    #   with:
+    #     github_token: ${{ secrets.ENRICHMAN_GH_TOKEN }}
+    #     repository: 'enrichman/enrichman.github.io'
