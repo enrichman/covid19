@@ -1,0 +1,53 @@
+name: Update data from Italian DPC
+
+on: 
+  schedule:
+    - cron:  '01 * * * *'
+  push:
+    branches:
+      - update-italian-data
+
+jobs:
+  clone-source:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone source
+      uses: actions/checkout@v2
+      with:
+          repository: 'pcm-dpc/COVID-19'
+    - name: Copy files
+      run: |
+        mkdir csv
+        mv dati-regioni/dpc-covid19-ita-regioni.csv csv/dpc-covid19-ita-regioni.csv
+        mv dati-province/dpc-covid19-ita-province.csv csv/dpc-covid19-ita-province.csv
+    - name: Upload files
+      uses: actions/upload-artifact@v1
+      with:
+        name: csv
+        path: csv
+  update-data:
+    needs: clone-source
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone our repo
+      uses: actions/checkout@v2
+      with:
+          repository: 'enrichman/covid19'
+          ref: 'master'
+    - name: Download files
+      uses: actions/download-artifact@v1
+      with:
+        name: csv
+        path: csv/italy
+    - name: Push on our repo
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git status
+       # git add -A
+       # git diff-index --quiet HEAD || git commit -m 'Update data'
+    # - name: Push changes
+    #   uses: ad-m/github-push-action@master
+    #   with:
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
+    #     branch: master
