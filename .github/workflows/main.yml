@@ -63,14 +63,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        path: site
         ref: 'master'
         repository: 'enrichman/enrichman.github.io'
     - name: Download files
       uses: actions/download-artifact@v1
       with:
         name: world
-        path: site/covid19/world
+        path: covid19/world
     - name: Run a multi-line script
       run: |
         cd site
