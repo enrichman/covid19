@@ -36,10 +36,9 @@ jobs:
     - name: Copy files
       run: |
         mkdir json
-        ls -al
-        mv dati-json/dpc-covid19-ita-andamento-nazionale.json json/italy.json
         mv dati-json/dpc-covid19-ita-andamento-nazionale.json json/italy.json
         mv dati-json/dpc-covid19-ita-regioni.json json/regioni.json
+        mv dati-json/dpc-covid19-ita-province.json json/province.json
     - name: Upload files
       uses: actions/upload-artifact@v1
       with:
