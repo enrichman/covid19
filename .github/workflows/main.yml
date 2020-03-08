@@ -43,7 +43,9 @@ jobs:
         name: csv
         path: csv
     - name: Generate new files
-      run: go run main.go
+      run: |
+        go version
+        go run main.go
     - name: Push on our repo
       run: |
         git config --local user.email "action@github.com"
