@@ -3,9 +3,6 @@ name: Update data from Italian DPC
 on: 
   schedule:
     - cron:  '01 * * * *'
-  push:
-    branches:
-      - update-italian-data
 
 jobs:
   clone-source:
@@ -44,7 +41,7 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add -A
-        git diff-index --quiet HEAD || git commit -m 'Update data'
+        git diff-index --quiet HEAD || git commit -m 'Update italian data'
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
