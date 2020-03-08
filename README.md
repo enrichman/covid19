@@ -5,6 +5,10 @@ This project was made to provide you some easy JSON endpoints, with the data alr
 
 For example: https://enrichman.github.io/covid19/world/mainland-china/data.json
 
+### Note
+
+Please be aware that the project is in an early stage of development and the data/endpoints are subject to changes!
+
 ## Object
 
 The object returned is a **Place**. A Place contains some metadata, an array of children (countries or provinces) and a timeseries field containing the deaths, confirmed and recovered cases.
