@@ -75,5 +75,11 @@ jobs:
         ls
         git status
         git remote show origin
-      # git add covid19
-      # git commit -m "Update covid19"
+        git add -A
+        git diff-index --quiet HEAD || git commit -m 'Update world data'
+    
+    - uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: master
+        repository: 'enrichman/enrichman.github.io'
