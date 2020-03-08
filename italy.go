@@ -28,7 +28,7 @@ func parseItalianRegions(reader io.Reader) []Record {
 	for i := 1; i < len(records); i++ {
 		provinceID := slug.Make(records[i][3]) // denominazione_regione
 
-		confirmed, _ := strconv.Atoi(records[i][10])                  // totale_attualmente_positivi
+		confirmed, _ := strconv.Atoi(records[i][14])                  // totale_casi
 		death, _ := strconv.Atoi(records[i][13])                      // deceduti
 		recovered, _ := strconv.Atoi(records[i][12])                  // dimessi_guariti
 		tsTime, _ := time.Parse("2006-01-02 15:04:05", records[i][0]) // data
