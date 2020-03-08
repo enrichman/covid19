@@ -74,10 +74,6 @@ jobs:
       run: |
         ls
         git status
+        git remote show origin
       # git add covid19
       # git commit -m "Update covid19"
-    
-    - uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: master
