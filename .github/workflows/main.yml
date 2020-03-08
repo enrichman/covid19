@@ -5,8 +5,6 @@ name: CI
 on:
   schedule:
     - cron:  '0 * * * *'
-  push:
-    branches: [ update-site ]
 
 jobs:
   clone-source:
@@ -72,14 +70,11 @@ jobs:
         path: covid19/world
     - name: Run a multi-line script
       run: |
-        ls
-        git status
-        git remote show origin
-        git add -A
+        git add world
         git diff-index --quiet HEAD || git commit -m 'Update world data'
     
     - uses: ad-m/github-push-action@master
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.ENRICHMAN_GH_TOKEN }}
         branch: master
         repository: 'enrichman/enrichman.github.io'
