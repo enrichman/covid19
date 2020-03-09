@@ -57,7 +57,7 @@ The `data.json` endpoint contains the timeseries only of the specified location,
 ```
 https://enrichman.github.io/covid19/world/<full/data>.json
 https://enrichman.github.io/covid19/world/<country>/<full/data>.json
-https://enrichman.github.io/covid19/world/<country>/<province>/full.json
+https://enrichman.github.io/covid19/world/<country>/<province>/data.json
 ```
 
 For example:
