@@ -78,6 +78,7 @@ https://enrichman.github.io/covid19/world/mainland-china/guangdong/data.json
 This section will contain a list of the projects using this APIs! :D
 
 - https://enrichman.github.io/covid19.html
+- https://github.com/4face-studi0/Covid19
 
 ## Contributing
 
