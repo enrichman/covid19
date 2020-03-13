@@ -58,26 +58,25 @@ func main() {
 
 	// italy data
 	italy := parseItaly()
-	os.MkdirAll(fmt.Sprintf("local/italy/"), os.ModePerm)
-	printItalyFull(italy, "local/italy/full.json")
-	printItalyData(italy, "local/italy/data.json")
 
 	for _, regione := range italy.Regioni {
 		regID := slug.Make(regione.DenominazioneRegione)
 
 		for _, provincia := range regione.Province {
 			provID := slug.Make(provincia.SiglaProvincia)
-			os.MkdirAll(fmt.Sprintf("local/italy/%s", regID), os.ModePerm)
-			printRegioneFull(regione, fmt.Sprintf("local/italy/%s/full.json", regID))
-			printRegioneData(regione, fmt.Sprintf("local/italy/%s/data.json", regID))
-
 			if provID == "" {
 				provID = "xx"
 			}
 			os.MkdirAll(fmt.Sprintf("local/italy/%s/%s", regID, provID), os.ModePerm)
 			printProvincia(provincia, fmt.Sprintf("local/italy/%s/%s/data.json", regID, provID))
 		}
+
+		printRegioneFull(regione, fmt.Sprintf("local/italy/%s/full.json", regID))
+		printRegioneData(regione, fmt.Sprintf("local/italy/%s/data.json", regID))
 	}
+
+	printItalyFull(italy, "local/italy/full.json")
+	printItalyData(italy, "local/italy/data.json")
 }
 
 func printWorldFull(place World, out string) {
