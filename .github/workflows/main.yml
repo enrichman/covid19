@@ -3,9 +3,6 @@ name: Update data from CSSEGISandData
 on: 
   schedule:
     - cron:  '0 * * * *'
-  push:
-    branches:
-      - fix-csv
 
 jobs:
   clone-source:
