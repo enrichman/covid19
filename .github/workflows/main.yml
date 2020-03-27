@@ -3,6 +3,9 @@ name: Update data from CSSEGISandData
 on: 
   schedule:
     - cron:  '0 * * * *'
+  push:
+    branches:
+      - fix-csv
 
 jobs:
   clone-source:
@@ -15,9 +18,9 @@ jobs:
     - name: Copy files
       run: |
         mkdir csv
-        mv csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv csv/confirmed.csv
-        mv csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv csv/deaths.csv
-        mv csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv csv/recovered.csv
+        mv csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid_confirmed_global.csv csv/confirmed.csv
+        mv csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid_deaths_global.csv csv/deaths.csv
+        mv csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid_recovered_global.csv csv/recovered.csv
     - name: Upload files
       uses: actions/upload-artifact@v1
       with:
